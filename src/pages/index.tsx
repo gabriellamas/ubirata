@@ -1,5 +1,8 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import * as S from './index.style'
+
+const Map = dynamic(() => import('@/components/map'), { ssr: false })
 
 export default function Home() {
   return (
@@ -12,6 +15,7 @@ export default function Home() {
       </Head>
       <main>
         <S.Heading>welcome to next.js!</S.Heading>
+        <Map />
       </main>
     </>
   )
