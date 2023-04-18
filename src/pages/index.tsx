@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import * as S from './index.style'
+import * as S from './style'
 
 const Map = dynamic(() => import('@/components/map'), { ssr: false })
 

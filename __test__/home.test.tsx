@@ -1,6 +1,6 @@
 // __tests__/index.test.jsx
 
-import Home from './index'
+import Home from '../src/pages/index'
 import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
