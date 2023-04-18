@@ -23,7 +23,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/api/neighborhoods.js"
+    "src/pages/api/neighborhoods.ts",
+    "src/hooks/use-fetch-products.test.js"
   ],
   "exclude": ["node_modules"]
 }

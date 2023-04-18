@@ -1,47 +1,59 @@
 import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
-import BairrosFakeApi from '@/fake-bairros-api.json'
-import { useEffect } from 'react'
+import { Feature, NeighborHoods } from '@/@types/neighborhoods'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Map = () => {
+  const [mapInfo, setMapInfo] = useState<NeighborHoods>()
+
   useEffect(() => {
-    fetch(location.origin + '/api/neighborhoods', {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
+    axios
+      .post('/api/neighborhoods', {
+        API_SECRET: `${process.env.NEXT_PUBLIC_API_SECRET}`
       })
-      .catch((err) => console.log(err))
+      .then((res) => {
+        const resParsed = JSON.parse(res.data)
+        setMapInfo(resParsed)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, [])
+
   return (
-    <MapContainer
-      center={[-23.198917, -45.905913]}
-      zoom={14}
-      style={{ width: '100%', height: '100%' }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-
-      {BairrosFakeApi.features.map((bairro) => {
-        const myCoordinates: any = bairro.geometry.coordinates
-          .flat(2)
-          .map((latLong) => latLong.reverse())
-
-        return (
-          // eslint-disable-next-line react/jsx-key
-          <Polygon
-            positions={myCoordinates}
-            eventHandlers={{
-              click: () => {
-                console.log(`Polygon clicked ${bairro.properties.name}`)
-              }
-            }}
+    <>
+      {!mapInfo ? (
+        <h1>Loading...</h1>
+      ) : (
+        <MapContainer
+          center={[-23.198917, -45.905913]}
+          zoom={14}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-        )
-      })}
-    </MapContainer>
+
+          {mapInfo.features.map((feature: Feature) => {
+            const myCoordinate = feature.geometry.coordinates
+              .flat(2)
+              .map((coordinate) => coordinate.reverse())
+            return (
+              <Polygon
+                key={feature.properties.id}
+                positions={myCoordinate}
+                eventHandlers={{
+                  click: () => {
+                    console.log(`Polygon clicked ${feature.properties.name}`)
+                  }
+                }}
+              />
+            )
+          })}
+        </MapContainer>
+      )}
+    </>
   )
 }
 
