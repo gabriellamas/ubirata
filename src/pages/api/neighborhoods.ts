@@ -36,7 +36,7 @@ async function getNeighborhoods(req: NextApiRequest, res: NextApiResponse) {
 
 export default getNeighborhoods
 
-//--> Mock NeighborHoods
+// -- Mock NeighborHoods -- //
 
 const mockNeighborhoods = {
   type: 'FeatureCollection',

@@ -7,17 +7,26 @@ const Map = () => {
   const [mapInfo, setMapInfo] = useState<NeighborHoods>()
 
   useEffect(() => {
-    axios
-      .post('/api/neighborhoods', {
-        API_SECRET: `${process.env.NEXT_PUBLIC_API_SECRET}`
-      })
-      .then((res) => {
-        const resParsed = JSON.parse(res.data)
-        setMapInfo(resParsed)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    const localStorageNeighborhoods =
+      window.localStorage.getItem('@neighborhoods')
+
+    if (localStorageNeighborhoods) {
+      const resParsed = JSON.parse(localStorageNeighborhoods)
+      setMapInfo(resParsed)
+    } else {
+      axios
+        .post('/api/neighborhoods', {
+          API_SECRET: `${process.env.NEXT_PUBLIC_API_SECRET}`
+        })
+        .then((res) => {
+          window.localStorage.setItem('@neighborhoods', res.data)
+          const resParsed = JSON.parse(res.data)
+          setMapInfo(resParsed)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }, [])
 
   return (
@@ -36,13 +45,14 @@ const Map = () => {
           />
 
           {mapInfo.features.map((feature: Feature) => {
-            const myCoordinate = feature.geometry.coordinates
+            const myCoordinates = feature.geometry.coordinates
               .flat(2)
               .map((coordinate) => coordinate.reverse())
+
             return (
               <Polygon
                 key={feature.properties.id}
-                positions={myCoordinate}
+                positions={myCoordinates}
                 eventHandlers={{
                   click: () => {
                     console.log(`Polygon clicked ${feature.properties.name}`)
