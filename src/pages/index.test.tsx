@@ -1,21 +1,24 @@
 // __tests__/index.test.jsx
 
-import { render, screen } from '@testing-library/react'
 import Home from './index'
+import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 describe('Home', () => {
-  it('renders a heading', () => {
-    render(<Home />)
-
-    const heading = screen.getByRole('heading', {
-      name: /welcome to next\.js!/i
+  beforeEach(async () => {
+    await waitFor(() => {
+      render(<Home />)
     })
+  })
 
+  it('should renders a heading', async () => {
+    const heading = screen.getByRole('heading', {
+      name: /Ubirata/i
+    })
     expect(heading).toBeInTheDocument()
   })
 
-  it('renders homepage unchanged', () => {
+  it('shopuld renders homepage unchanged', () => {
     const { container } = render(<Home />)
     expect(container).toMatchSnapshot()
   })

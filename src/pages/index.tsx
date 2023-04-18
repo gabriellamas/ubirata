@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <S.Heading>welcome to next.js!</S.Heading>
+        <S.Heading>Ubirata</S.Heading>
         <Map />
       </main>
     </>

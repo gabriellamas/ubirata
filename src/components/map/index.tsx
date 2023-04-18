@@ -1,7 +1,18 @@
 import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
-import BairrosFakeApi from '../../fake-bairros-api.json'
+import BairrosFakeApi from '@/fake-bairros-api.json'
+import { useEffect } from 'react'
 
 const Map = () => {
+  useEffect(() => {
+    fetch(location.origin + '/api/neighborhoods', {
+      method: 'GET'
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
   return (
     <MapContainer
       center={[-23.198917, -45.905913]}
@@ -17,8 +28,18 @@ const Map = () => {
         const myCoordinates: any = bairro.geometry.coordinates
           .flat(2)
           .map((latLong) => latLong.reverse())
-        // eslint-disable-next-line react/jsx-key
-        return <Polygon positions={myCoordinates} />
+
+        return (
+          // eslint-disable-next-line react/jsx-key
+          <Polygon
+            positions={myCoordinates}
+            eventHandlers={{
+              click: () => {
+                console.log(`Polygon clicked ${bairro.properties.name}`)
+              }
+            }}
+          />
+        )
       })}
     </MapContainer>
   )
