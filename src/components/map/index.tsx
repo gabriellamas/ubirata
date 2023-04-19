@@ -1,16 +1,16 @@
 import { MapContainer, Polygon, TileLayer, Tooltip } from 'react-leaflet'
-import { useFetchNeighborhoods } from '@/customHooks/useFetchNeighborhoods'
-import { Feature } from '@/@types/neighborhoods'
+import { Feature, NeighborHoods } from '@/@types/neighborhoods'
 import styles from './styles.module.css'
+import { useFetch } from '@/customHooks/useFetch'
 
 const Map = () => {
-  const { mapInfo, error, loading } = useFetchNeighborhoods()
+  const { data, error, loading } = useFetch<NeighborHoods>('/api/neighborhoods')
 
   return (
     <>
       {error && <h1>Erro: {error}</h1>}
       {loading && <h1>Loading...</h1>}
-      {mapInfo && (
+      {data && (
         <MapContainer
           center={[-23.198917, -45.905913]}
           zoom={14}
@@ -21,7 +21,7 @@ const Map = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {mapInfo.features.map((feature: Feature) => {
+          {data.features.map((feature: Feature) => {
             const myCoordinates = feature.geometry.coordinates
               .flat(2)
               .map((coordinate) => coordinate.reverse())

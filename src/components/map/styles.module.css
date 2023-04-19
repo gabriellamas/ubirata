@@ -1,8 +1,8 @@
-.tooltipText {
-  font-size: 16px;
-}
-
 .map {
   width: 100%;
   height: 100%;
+}
+
+.tooltipText {
+  font-size: 16px;
 }

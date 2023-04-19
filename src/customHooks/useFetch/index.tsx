@@ -1,9 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { NeighborHoods } from '@/@types/neighborhoods'
 
-export const useFetchNeighborhoods = () => {
-  const [mapInfo, setMapInfo] = useState<undefined | NeighborHoods>(undefined)
+export const useFetch = <T,>(url: string) => {
+  const [data, setData] = useState<undefined | T>(undefined)
   const [error, setError] = useState<boolean | string>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -11,12 +10,12 @@ export const useFetchNeighborhoods = () => {
     try {
       setLoading(true)
       axios
-        .post('/api/neighborhoods', {
+        .post(url, {
           API_SECRET: `${process.env.NEXT_PUBLIC_API_SECRET}`
         })
         .then((res) => {
           const resParsed = JSON.parse(res.data)
-          setMapInfo(resParsed)
+          setData(resParsed)
         })
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -29,5 +28,5 @@ export const useFetchNeighborhoods = () => {
     }
   }, [])
 
-  return { mapInfo, error, loading }
+  return { data, error, loading }
 }
