@@ -3,7 +3,18 @@ import { Feature, NeighborHoods } from '@/@types/neighborhoods'
 import styles from './styles.module.css'
 import { useFetch } from '@/customHooks/useFetch'
 
-const Map = () => {
+export type Properties = {
+  id: number
+  name: string
+  setor: string
+  zona: string
+}
+
+interface Props {
+  HandleSelectNeighborhood: (properties: Properties) => void
+}
+
+const Map = ({ HandleSelectNeighborhood }: Props) => {
   const { data, error, loading } = useFetch<NeighborHoods>('/api/neighborhoods')
 
   return (
@@ -12,7 +23,7 @@ const Map = () => {
       {loading && <h1>Loading...</h1>}
       {data && (
         <MapContainer
-          center={[-23.198917, -45.905913]}
+          center={[-23.220517227332461, -45.916854913518947]}
           zoom={14}
           className={styles.map}
         >
@@ -31,9 +42,7 @@ const Map = () => {
                 key={feature.properties.id}
                 positions={myCoordinates}
                 eventHandlers={{
-                  click: () => {
-                    console.log(`Polygon clicked ${feature.properties.name}`)
-                  }
+                  click: () => HandleSelectNeighborhood(feature.properties)
                 }}
               >
                 <Tooltip sticky>

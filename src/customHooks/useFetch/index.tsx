@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 export const useFetch = <T,>(url: string) => {
   const [data, setData] = useState<undefined | T>(undefined)
-  const [error, setError] = useState<boolean | string>(false)
+  const [error, setError] = useState<false | string>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const useFetch = <T,>(url: string) => {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [url])
 
   return { data, error, loading }
 }

@@ -15,12 +15,28 @@ export const BodyContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 24px;
+  padding: 24px 24px 48px;
   background: #fff;
   width: 98%;
-  height: 98%;
+  height: auto;
   max-width: 1200px;
-  max-height: 700px;
+  max-height: 98%;
+  overflow: auto;
   z-index: 1001;
   border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 16px;
+    background: none;
+    border: none;
+    z-index: 40;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 `

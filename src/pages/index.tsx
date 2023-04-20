@@ -1,10 +1,23 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { Modal } from '@/components/modal'
+import { Modal } from '@/components/Modal'
+import { useState } from 'react'
+import { ChartPopulationInfo } from '@/components/ChartPopulationInfo'
+import { Properties } from '@/components/map'
 
 const Map = dynamic(() => import('@/components/map'), { ssr: false })
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [properties, setProperties] = useState<Properties | undefined>(
+    undefined
+  )
+
+  const HandleSelectNeighborhood = (properties: Properties) => {
+    setProperties(properties)
+    setModalOpen(true)
+  }
+
   return (
     <>
       <Head>
@@ -15,8 +28,12 @@ export default function Home() {
       </Head>
       <main>
         <h1>Ubirata</h1>
-        <Map />
-        <Modal infos={[]} />
+        <Map HandleSelectNeighborhood={HandleSelectNeighborhood} />
+        {modalOpen && (
+          <Modal setModalOpen={setModalOpen}>
+            <ChartPopulationInfo properties={properties} />
+          </Modal>
+        )}
       </main>
     </>
   )
