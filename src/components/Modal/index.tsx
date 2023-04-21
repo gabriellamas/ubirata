@@ -9,7 +9,7 @@ interface Props {
 
 export const Modal = ({ children, setModalOpen }: Props) => {
   return (
-    <Wrapper onClick={() => setModalOpen(false)}>
+    <Wrapper>
       <BodyContainer>
         <button onClick={() => setModalOpen(false)}>
           <FiX size={22} />
