@@ -4,6 +4,10 @@ import { Modal } from '@/components/Modal'
 import { useState } from 'react'
 import { ChartPopulationInfo } from '@/components/ChartPopulationInfo'
 import { Properties } from '@/components/map'
+import Logo_Ubirata_Positive from '../../public/Logo_Ubirata_Positive.png'
+import styles from '../styles/home.style.module.css'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Map = dynamic(() => import('@/components/map'), { ssr: false })
 
@@ -27,7 +31,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Ubirata</h1>
+        <Link
+          href="https://www.ubirata.ai/"
+          target="_Blank"
+          className={styles.containerLogo}
+        >
+          <Image
+            src={Logo_Ubirata_Positive}
+            alt="Logo Ubiratã"
+            width={1000}
+            height={296}
+            className={styles.ubirataLogo}
+          />
+          <p>| Test</p>
+        </Link>
+
         <Map
           HandleSelectNeighborhood={HandleSelectNeighborhood}
           data-testid="map"

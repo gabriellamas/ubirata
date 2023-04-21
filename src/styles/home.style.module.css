@@ -1,0 +1,30 @@
+.containerLogo {
+  position: absolute;
+  top: 2%;
+  left: 100%;
+  transform: translate(-110%, 0%);
+  z-index: 500;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.containerLogo p {
+  width: 100%;
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  width: 40px;
+}
+
+.ubirataLogo {
+  width: 140px;
+  height: auto;
+}
