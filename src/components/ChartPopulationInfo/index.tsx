@@ -32,11 +32,15 @@ export const ChartPopulationInfo = ({ properties }: Props) => {
   }, [data, properties])
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="wrapper">
       <h1>Bairro: {properties?.name}</h1>
       {error && <h1>{error}</h1>}
       {loading && <h1>Carregando...</h1>}
-      <HighchartsReact highcharts={Highcharts} options={dataForChart} />
+      <HighchartsReact
+        data-testid="chart"
+        highcharts={Highcharts}
+        options={dataForChart}
+      />
     </Wrapper>
   )
 }

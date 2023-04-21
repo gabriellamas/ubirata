@@ -1,15 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home shopuld renders homepage unchanged 1`] = `
-.c0 {
-  color: #fff;
-}
-
 <div>
   <main>
-    <h1
-      class="c0"
-    >
+    <h1>
       Ubirata
     </h1>
   </main>

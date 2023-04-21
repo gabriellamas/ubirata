@@ -24,7 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/pages/api/neighborhoods.ts",
-    "src/hooks/use-fetch-products.test.js"
+    "src/hooks/use-fetch-products.test.js",
+    "src/components/map/error-map.test"
   ],
   "exclude": ["node_modules"]
 }

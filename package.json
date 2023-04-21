@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:all": "jest --watchAll"
   },
   "dependencies": {
     "@types/node": "18.15.11",

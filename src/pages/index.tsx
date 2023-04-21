@@ -28,7 +28,10 @@ export default function Home() {
       </Head>
       <main>
         <h1>Ubirata</h1>
-        <Map HandleSelectNeighborhood={HandleSelectNeighborhood} />
+        <Map
+          HandleSelectNeighborhood={HandleSelectNeighborhood}
+          data-testid="map"
+        />
         {modalOpen && (
           <Modal setModalOpen={setModalOpen}>
             <ChartPopulationInfo properties={properties} />
